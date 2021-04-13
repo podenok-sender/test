@@ -1,0 +1,66 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+div.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+}
+
+div.form-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+input#file-input {
+    cursor: pointer;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+div.drop-area {
+    border: 1px dashed black;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.drop-area-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+div.drop-area-content-file {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+}
+
+div.fi {
+    margin: 0;
+}
+
+.input-error {
+    color: red;
+}
