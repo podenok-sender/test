@@ -5,6 +5,7 @@ const idInputError = document.querySelector('.id-input-error')
 const infoInputError = document.querySelector('.info-input-error')
 const sendButton = document.querySelector('button#send-button')
 const loadButton = document.querySelector('button#load-button')
+const downloadButton = document.querySelector('button#download-button')
 const dropAreaContent = document.querySelector('div.drop-area-content')
 
 let files = []
@@ -19,6 +20,30 @@ const uuidv4 = () => {
         let r = (Math.random() * 16) | 0,
             v = c == 'x' ? r : (r & 0x3) | 0x8
         return v.toString(16)
+    })
+}
+
+const download = (id, file, tar) => {
+    $.ajax({
+        url: 'PHP/API.php',
+        type: 'POST',
+        dataType: 'binary',
+        xhrFields: {
+            responseType: 'blob'
+        },
+        data: {
+            action: 'download',
+            id: id,
+            file: file,
+            tar: tar
+        },
+        success: function (data, status, xhr) {
+            var blob = new Blob([data], { type: xhr.getResponseHeader('Content-Type') })
+            var link = document.createElement('a')
+            link.href = window.URL.createObjectURL(blob)
+            link.download = 'download.png'
+            link.click()
+        }
     })
 }
 
@@ -172,6 +197,10 @@ loadButton.onclick = e => {
             }
         }
     })
+}
+
+downloadButton.onclick = () => {
+    download('4rdbDpHKB5SVuJJ2tAYoMTXNHCpHKyb4', '', true)
 }
 
 renderFiles()
