@@ -1,8 +1,10 @@
 const form = document.querySelector('#form')
 const fileInput = document.querySelector('input#file-input')
 const idInput = document.querySelector('input[name=id]')
+
 const idInputError = document.querySelector('.id-input-error')
 const infoInputError = document.querySelector('.info-input-error')
+
 const sendButton = document.querySelector('button#send-button')
 const loadButton = document.querySelector('button#load-button')
 const downloadButton = document.querySelector('button#download-button')
@@ -37,12 +39,16 @@ const download = (id, file, tar) => {
             file: file,
             tar: tar
         },
-        success: function (data, status, xhr) {
-            var blob = new Blob([data], { type: xhr.getResponseHeader('Content-Type') })
-            var link = document.createElement('a')
-            link.href = window.URL.createObjectURL(blob)
-            link.download = 'download.png'
-            link.click()
+        success: (data, status, xhr) => {
+            const type = xhr.getResponseHeader('Content-Type')
+
+            if (type.includes('application/octet-stream')) {
+                const blob = new Blob([data], { type: type })
+                const link = document.createElement('a')
+                link.href = window.URL.createObjectURL(blob)
+                link.download = file ? file : 'archive.tar.gz'
+                link.click()
+            }
         }
     })
 }
@@ -197,10 +203,6 @@ loadButton.onclick = e => {
             }
         }
     })
-}
-
-downloadButton.onclick = () => {
-    download('4rdbDpHKB5SVuJJ2tAYoMTXNHCpHKyb4', '', true)
 }
 
 renderFiles()
