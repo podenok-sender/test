@@ -152,6 +152,7 @@ $.ajax({
 
 <a name="save"/>
 ### Сохранение лабораторной.
+
 ```js
 $.ajax({
 	type: 'POST',
@@ -189,6 +190,7 @@ $.ajax({
 
 <a name="download"/>
 ### Скачивание файлов лабораторной.
+
 ```js
 $.ajax({
 	url: 'PHP/API.php',
@@ -219,6 +221,7 @@ $.ajax({
 ```
 <a name="sent"/>
 ### Отправка лабораторной.
+
 ```js
 $.ajax({
 	type: 'POST',
