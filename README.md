@@ -95,13 +95,12 @@ Podenok-sender
 
 ```js
 $.ajax({
-$.ajax({
 	type: 'POST',
 	url: 'PHP/API.php',
 	charset: "utf-8",
 	data: {
 		'action': 'info',
-		'id': '4rdbDpHKB5SVuJJ2tAYoMTXNHCpHKyb4',
+		'id': '4rdbDpHKB5SVuJJ2tAYoMTXN49pHKyb4',
 	},
 	success: function(data, textStatus, request) {
 
@@ -118,3 +117,92 @@ $.ajax({
 	}
 });
 ```
+
+### Сохранение лабораторной.
+```js
+$.ajax({
+	type: 'POST',
+	url: 'PHP/API.php',
+	charset: "utf-8",
+	data: {
+		'action': 'save',
+		'id': '', // Создание новой лабораторной
+		'name1': 'Иванов',
+		'name2': 'Иван',
+		'name3': 'Иванович',
+		'group': '950508',
+		'lab': '1',
+		'comments': 'Мой комментарий',
+		'copyID': '4rdbDpHKB5SVuJJ2tAYoMTXN49pHKyb4',
+		'copyFiles': { // Скопировать файлы 'copyFiles' из лабораторной 'copyID'
+			'name': {
+				'0': 'mail.cpp',
+				'1': 'readme.pdf'
+			}
+		}
+	},
+	success: function(data, textStatus, request) {
+		if (!data.OK) {
+			alert(data.message);
+		}
+
+	},
+	error: function(request, textStatus, errorThrown) {
+		alert(textStatus);
+	}
+});
+```
+
+
+### Скачивание файлов лабораторной.
+```js
+$.ajax({
+	url: 'PHP/API.php',
+	type: 'POST',
+	dataType: 'binary',
+	xhrFields: {
+		responseType: 'blob'
+	},
+	data: {
+		action: 'download',
+		id: 'LhYe699a15f3dETHj4qSo6TditF5VtAz',
+		file: 'lab.pdf',
+		tar: 'false'
+	},
+	success: function(data, status, xhr) {
+		var blob = new Blob([data], {
+			type: xhr.getResponseHeader('Content-Type')
+		});
+		var link = document.createElement('a');
+		link.href = window.URL.createObjectURL(blob);
+		link.download = 'lab.pdf';
+		link.click();
+	},
+	error: function(request, textStatus, errorThrown) {
+		alert(textStatus);
+	}
+});
+```
+### Отправка лабораторной.
+```js
+$.ajax({
+	type: 'POST',
+	url: 'PHP/API.php',
+	charset: "utf-8",
+	data: {
+		'action': 'sent',
+		'id': '4rdbDp6KB5SVuJJ2tAYoMTXN49pHKyb4',
+	},
+	success: function(data, textStatus, request) {
+
+		if (!data.OK) {
+			alert(data.message);
+		}
+
+	},
+	error: function(request, textStatus, errorThrown) {
+		alert(textStatus);
+	}
+});
+```
+
