@@ -74,7 +74,6 @@ Podenok-sender
 +  'false' - скачать файл [file].
 
 
-
 ### Файлы POST-запроса:
 [files] - двумерный массив файлов,
 первое поле - одно из описанный далее,
@@ -88,10 +87,34 @@ Podenok-sender
 +  [error] - ошибки при загрузке файла.		[int array]
 
 
-[files] - двумерный массив файлов, первое поле - одно из описанный далее, второе поле - порядковый номер загружаемого файла. (подробнее: https://www.php.net/manual/ru/features.file-upload.post-method.php)
-+ [name] - названия файлов загруженных пользователем
-   + [0] - информация о первом файле
-   + [1] - информация о втором файле
-+ [tmp_name] - временное имя во временной директории
-+ [size] - размер фала в байтах
-+ [error] - ошибки при загрузке файла
+Примеоры POST-запросов.
+---------------------------------------------------------------
+
+
+### Запрос информации о лабораторной.
+
+```js
+$.ajax({
+$.ajax({
+	type: 'POST',
+	url: 'PHP/API.php',
+	charset: "utf-8",
+	data: {
+		'action': 'info',
+		'id': '4rdbDpHKB5SVuJJ2tAYoMTXNHCpHKyb4',
+	},
+	success: function(data, textStatus, request) {
+
+		if (data.OK) {
+			alert(JSON.stringify(data));
+		}
+		else {
+			alert(data.message);
+		}
+
+	},
+	error: function(request, textStatus, errorThrown) {
+		alert(textStatus);
+	}
+});
+```
